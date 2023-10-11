@@ -67,4 +67,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :phone, :cpf)
     end
+
+    def search
+      if parameters[:search].blank?
+        redirect_to users and return
+      else
+        @parameter = params[:search].downcase
+        @results = User.all.where("lower(name) LIKE :search:", search: "%#{@parameter}%")
+      end
+    end
 end
