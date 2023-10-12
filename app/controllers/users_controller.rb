@@ -3,7 +3,12 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if params[:search].present?
+      @parameter = params[:search].downcase
+      @results = User.where("lower(name) LIKE :search OR lower(email) LIKE :search", search: "%#{@parameter}%")
+    else
+      @results = User.all
+    end
   end
 
   # GET /users/1 or /users/1.json

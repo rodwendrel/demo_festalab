@@ -1,9 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
+<%= form_tag(users_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by name" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+
 <h1>Users</h1>
 
 <div id="users">
-  <% @users.each do |user| %>
+  <% @results.each do |user| %>
     <%= render user %>
     <p>
       <%= link_to "Show this user", user %>
