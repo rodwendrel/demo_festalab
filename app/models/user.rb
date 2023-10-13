@@ -1,24 +1,17 @@
 class User < ApplicationRecord
 
-#   #Validação do Active Record
-#   validates :email,
-#   #Utiliza o padrão REGEX para validação dos caracteres do email e apresenta mensagem para o usuário
-#   format: { with: /\A(.+)@(.+)\z/, message: "Email inválido", },
-#             #Verifica duplicidades de email na base de dados
-#             uniqueness: { case_sensitive: false, message: "O email informado já está cadastrado" },
-#             #Valida quatidade de caracteres no email
-#             length: { minimum: 4, maximum: 254, message: "O email informado deve ter mais de 4 Caracteres"};
+    validates :name, presence:true, length: { minimum: 2 };
 
+    validates :email,
+    format: { with: /\A(.+)@(.+)\z/, message: "Invalid email", },
+            uniqueness: { case_sensitive: false, message: "the email adress already exists" },
+            length: { minimum: 4, maximum: 254, message: "The email provided must have more than 4 characters"};
 
-#   validates :cpf,
-#      presence: true,
-#      format: { with: /^[0-9]{11}$/, message: 'O cpf informado é', multiline: true }
+    validates :phone, presence:true, length: { minimum: 9, maximum: 11, message: "Phone is invalid" };
 
-
-#   validates :phone,
-#      presence: true,
-#      numericality: true,
-#      length: { minium: 9, maximum: 11, message: "Informe um número de telefone válido" }
-
-
+    validates :cpf, length: { is: 11, message: "Invalid CPF"},
+    presence: true, uniqueness: true,
+    format: { with: /^[0-9]{11}$/, message: 'The CPF number must contain 11 numbers', multiline: true },
+    exclusion: { in:%w( 00000000000 11111111111 22222222222 33333333333 44444444444 55555555555 66666666666 77777777777 88888888888 99999999999 12345678909 01234567890 ),
+    message: "%{value} it is an invalid CPF" };
 end

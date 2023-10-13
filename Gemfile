@@ -66,6 +66,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-gem 'ransack', :github => 'activerecord-hackery/ransack', :branch => 'main'
-
-gem 'pg_search'

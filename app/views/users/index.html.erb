@@ -1,20 +1,46 @@
 <p style="color: green"><%= notice %></p>
 
-<%= form_tag(users_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search by name" %>
-  <%= submit_tag "Search" %>
-<% end %>
-
 
 <h1>Users</h1>
 
+    <%= form_tag(users_path, method: :get, class: "form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+      <%= submit_tag "Search" %>
+      <%= link_to "Clear", users_path %>
+    <% end %>
+
+    <br>
+    <%= link_to "New user", new_user_path %>
+    <br />
+    <br />
+    
 <div id="users">
-  <% @results.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
+  <table style="border-spacing: 0;" border="1">
+    <thead>
+        <tr style="height: 40px;background: #d7d7d7;">
+          <th style="width: 200px; text-align: left">Name</th>
+          <th style="width: 300px; text-align: left">Email</th>
+          <th style="width: 150px; text-align: left">Phone</th>
+          <th style="width: 150px; text-align: left">CPF</th>
+          <th style="width: 150px; text-align: left">Options</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      <% @results.each do |user| %>
+        <tr style="height: 30px">
+          <li style="list-style-type: none">
+            <td style="width: 200px; text-align: left"><%= user.name %></td>
+            <td style="width: 300px; text-align: left"><%= user.email %></td>
+            <td style="width: 150px; text-align: left"><%= user.phone %></td>
+            <td style="width: 150px; text-align: left"><%= user.cpf %></td>
+            <td style="width: 150px; text-align: left"><%= link_to "Show", user %></td>
+          </li>
+        </tr>
+    
+      <% end %>
+      </tbody>
+    </table
 </div>
 
-<%= link_to "New user", new_user_path %>
+

@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     if params[:search].present?
-      @parameter = params[:search].downcase
-      @results = User.where("lower(name) LIKE :search OR lower(email) LIKE :search", search: "%#{@parameter}%")
+      @parameter = params[:search].downcase.strip
+      @results = User.where(["name LIKE :search OR email Like :search OR phone LIKE :search OR cpf LIKE :search", search: "%#{@parameter}%"])
     else
       @results = User.all
     end
